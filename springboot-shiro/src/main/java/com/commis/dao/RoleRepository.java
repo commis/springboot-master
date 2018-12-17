@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleRepository extends JpaRepository<RoleBean, String> {
 
-    @Query(value = "select u.* from t_user u "
+    @Query(value = "select u.id,u.cnname,u.username,u.password,u.telephone "
+        + "from t_user u "
         + "right join t_user_role ur on u.id=ur.user_id "
         + "left join t_role r on ur.role_id=r.id "
         + "where u.username=?1", nativeQuery = true)

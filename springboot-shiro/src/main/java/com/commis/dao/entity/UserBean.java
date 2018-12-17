@@ -60,7 +60,7 @@ public class UserBean {
     @Basic
     @Column(name = "telephone")
     public String getTelephone() {
-        return telephone;
+        return username + telephone;
     }
 
     public void setTelephone(String telephone) {

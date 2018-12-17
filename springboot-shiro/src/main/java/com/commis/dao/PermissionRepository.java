@@ -9,20 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PermissionRepository extends JpaRepository<PermissionBean, String> {
 
-    /*SELECT
-    sys_role.id,
-    sys_role.available,
-    sys_role.description,
-    sys_role.role,
-    sys_permission.`name`,
-    sys_permission.permission,
-    sys_permission.url
-    FROM
-        (sys_permission, sys_role)
-    RIGHT JOIN sys_role_permission ON sys_permission.id = sys_role_permission.permission_id
-    AND sys_role_permission.role_id = sys_role.id
-    WHERE sys_role.id=#{roleId}*/
-
-    @Query(value = "select * from ", nativeQuery = true)
+    @Query(value = "select r.id,r.name,r.role_level,r.description "
+        + "from t_permission p, t_role r "
+        + "right join t_role_permission rp on p.id=rp.permission_id and rp.role_id=r.id "
+        + "where r.id=?1", nativeQuery = true)
     List<PermissionBean> findPermissionByRoleId(Integer roleId);
 }
